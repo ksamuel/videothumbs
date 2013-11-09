@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from livereload.task import Task
+from livereload.compiler import lessc
+
+Task.add('../apps/core/static/less/boostrap/boostrap.less',
+         lessc('../apps/core/static/less/boostrap/boostrap.less',
+               '../apps/core/static/css/boostrap.css'))
+
+Task.add('../apps/core/static/less/style.less',
+         lessc('../apps/core/static/less/style.less',
+               '../apps/core/static/css/style.css'))
+
+Task.add('../apps/core/static/img/')
+
+Task.add('../apps/core/templates/')
