@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    'simple_email_confirmation',
     'django_extensions',
 
     'core',
@@ -204,3 +205,16 @@ CACHES = {
 
 
 CONN_MAX_AGE = 60
+
+AUTH_USER_MODEL = 'core.User'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DOMAINE_NAME = 'videothumbs'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

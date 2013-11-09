@@ -8,6 +8,8 @@ from .base import *
 
 DEBUG = True
 
+DOMAIN_NAME = '127.0.0.1:8000'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -23,3 +25,4 @@ MIDDLEWARE_CLASSES += (
 TEMPLATE_CONTEXT_PROCESSORS += (
     "django_quicky.context_processors.settings",
 )
+
