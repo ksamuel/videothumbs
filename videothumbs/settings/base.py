@@ -7,6 +7,9 @@ import os
 import sys
 import tempfile
 
+import djcelery
+djcelery.setup_loader()
+
 from path import path
 
 PROJECT_DIR = path(__file__).realpath().parent
@@ -130,6 +133,7 @@ INSTALLED_APPS = (
 
     'simple_email_confirmation',
     'django_extensions',
+    'djcelery',
 
     'core',
 )
@@ -213,6 +217,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 DOMAINE_NAME = 'videothumbs'
+
+BROKER_URL = CELERY_RESULT_BACKEND = "redis://localhost/0"
 
 try:
     from .local_settings import *
