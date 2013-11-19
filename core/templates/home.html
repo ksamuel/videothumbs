@@ -2,19 +2,256 @@
 
 {% block page-class %}home{% endblock page-class %}
 
-
+{% load static %}
 {% block content %}
 
 {% if message %}
   <p class="{{ type }}">{{ message }}</p>
 {% endif %}
 
-<form action="." method="post" accept-charset="utf-8">
-  <p>
-    <input type="mail" name="email" placeholder="Email address">
-    <input type="submit" value="Request an account" >
-  </p>
-  {% csrf_token %}
-</form>
+
+
+<!-- TOP MENU
+==================================================
+<div class="lock-header hidden-phone">
+	<div class="container">
+		<div class="row">
+			<div class="span4 offset2">
+				<h4>We're working in our site. <span>Socialize:</span></h4>
+			</div>
+			<div class="span4">
+			<a href="#"><img src="{% static 'images/Facebook.png' %}" alt="HOME"></a>
+			<a href="#"><img src="{% static 'images/Pinterest.png' %}" alt="HOME"></a>
+			<a href="#"><img src="{% static 'images/Twitter.png' %}" alt="HOME"></a>
+			<a href="#"><img src="{% static 'images/Feed.png' %}" alt="HOME"></a>
+			<a href="#"><img src="{% static 'images/Share-This.png' %}" alt="HOME"></a>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<div class="page-wrapper">
+	<div class="agency-wrap">
+		<div class="container page-container home-container">
+			<div class="row">
+				<div class="span12">
+					<div class="top-nav">
+						<ul class="nav hidden-phone">
+							<li>
+								<a href="#contact" class="contact-link">CONTACT</a>
+							</li>
+						</ul>
+
+					</div>
+<!-- TOP PAGE DISPLAY
+================================================== -->
+					<div class="header-main hidden-phone">
+						<h1>VideoThumbs</h1>
+						<br class="hidden-phone">
+						<h4>VideoThumbs is a servie to make lovely screenshoots of your videos.</h4>
+						<h4>Post your video or use our API to get back clear thumbnails at desired size and number.</h4>
+						<form action="." method="post" accept-charset="utf-8" id="subForm" class="theme-form sign-up-form">
+						  <p>
+							<input type="email" name="email" id="email" class="email required" value="youremail@here.com" title="">
+						    <input type="submit" value="Request an account" >
+						  </p>
+						  {% csrf_token %}
+						</form>
+						<div class="logo"><img src="{% static "images/logo.png" %}"></div>
+					</div>
+					
+					<div class="header-main-phone visible-phone">
+						<h1>VideoThumbs</h1>
+						<h4>VideoThumbs is a servie to make lovely screenshoots of your videos.</h4>
+						<form action="." method="post" accept-charset="utf-8" id="subForm" class="theme-form sign-up-form">
+						  <p>
+							<input type="email" name="email" id="email" class="email required" value="" title="Your email address" >
+						    <input type="submit" value="Request an account" >
+						  </p>
+						  {% csrf_token %}
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<a href="#feature-set" class="down-tab hidden-phone" name="feature-set">
+		LEARN MORE
+	</a>
+	<div class="full-width-features feature-1">
+		<div class="container">
+			<div class="row">
+			
+<!-- SERVICES SECTION
+================================================== -->
+				<div class="span12">
+					<h1>Get the best thumbnails from your videos</h1>
+					<h2>Get clear thumbnails from your videos quickly, define collections of sized thumbnails and let us do the bad work. <br class="hidden-phone">Use our Api to batch the process and do not worry anymore about screenshooting your videos.</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<hr>
+					<br>
+				</div>
+				<div class="span6">
+					<img src="{% static 'images/thumbnails.jpg' %}" alt="">
+					<p></p>
+					<h3>Manage</h3>
+					<p class="services-para">
+						<br>Define several collections of sizes.
+						<br>Use our special filters to make thumbnails crystal clear.
+						<br>Crop black borders.
+						<br>And more...
+					</p>
+				</div>
+				<div class="span6">
+					<img src="{% static 'images/api.png' %}" alt="">
+					<p></p>
+					<h3>Api</h3>
+					<p class="services-para">
+						<br>Use our powerfull Api to batch the process and download thumbnails when they're ready.
+						<br>Define your collections size and quality.
+						<br>Provide video url and our Api will do the job.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="full-width-features feature-2">
+		<div class="container">
+			<div class="row">
+
+<!-- PRICES TABLE
+================================================== -->
+				<div class="span12">
+					<h1>AMAZING PRICES</h1>
+					<h2>We have special plan to match your needs, from FREE to mass thumbnailing.
+
+					<Br class="hidden-phone"> 
+						FREE account offer you 5 credits per day, 1 credit per thumbnailing. Payments are made by PayPal.
+					</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+				</div>
+				<div class="span12">
+            <div class="pricing-table-wrapper">
+                <div class="pricing-table row-fluid">
+                    <ul class="pricing-column span2">
+                        <li class="pricing-title">FREE</li>
+                        
+                        <li class="pricing-price">5 Videos <span>/day</span>
+                        </li>
+                        <li>Yes</li>
+                        <li>Yes</li>
+                        <li>Yes</li>
+                        <li>Yes</li>
+                        <li>No</li>
+                        
+                    </ul>
+                    
+                    <ul class="pricing-column span2">
+                        <li class="pricing-title">Plan 1</li>
+                        
+                        <li class="pricing-price">$20 <span></span>
+                        </li>
+                        
+                        <li>10,000 videos</li>
+                        <li>Resizing Thumb</li>
+                        <li>Crop black borders</li>
+                        <li>Image filtering</li>
+                        <li>Batch processing</li>
+                        
+                    </ul>
+                    
+                    <ul class="pricing-column span3">
+                        <li class="pricing-title">Plan 2</li>
+                        
+                        <li class="pricing-price">$50 <span></span>
+                        </li>
+
+                        <li>50,000 videos</li>
+                        <li>Resizing Thumb</li>
+                        <li>Crop black borders</li>
+                        <li>Image filtering</li>
+                        <li>Batch processing</li>
+                        
+                    </ul>
+                    
+                    <ul class="pricing-column span5">
+                        <li class="pricing-title">Plan 3</li>
+                        
+                        <li class="pricing-price">$100 <span></span>
+                        </li>
+                        
+                        <li>200,000 videos</li>
+                        <li>Resizing Thumb</li>
+                        <li>Crop black borders</li>
+                        <li>Image filtering</li>
+                        <li>Batch processing</li>
+                        
+                    </ul>
+                </div>
+            </div>				</div>
+			</div>
+
+				<div class=" call-to-action">
+		 	<a href="#contact" class="contact-link">CONTACT US FOR SPECIAL NEEDS</a>
+	</div>
+		</div>
+	</div>
+ 
+
+<!-- CONTACT FORM & MAP
+================================================== -->
+<div class="footer" name="contact">
+	<div class="container contact-form">
+		<div class="row">
+			<div class="span12">
+			<br>
+			<br>
+			<h3>Contact Us</h3>
+			<br>
+			</div>
+			<form action="" method="post" class="theme-form">
+				<div class="span3">
+					<input type="text" name="namefield"  title="Name" class="required" id="name-field">
+				</div>	
+				<div class="span3">
+					<input type="email" name="emailfield" title="Email" class="email required" id="email-field">
+				</div>
+				<div class="span3">
+					<input type="text" name="phonefield" title="Phone" id="phone-field">
+				</div>
+				<div class="span3">
+					<input type="text" name="companyfield" title="Company" id="company-field">
+				</div>
+				<div class="span12  comments-textarea">
+					<textarea name="commentsfield" title="" id="comments-field"></textarea>
+				</div>
+				<div class="span4 offset4">
+					<input type="hidden" name="say" value="hello">
+					<input type="submit" value="SUBMIT!">
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<div class="copyright">
+			<a href="index.html" class="logo">
+				<img src="{% static 'images/logo.png' %}" alt="logo">
+			</a>
+			<p>
+				VideoThumbs 2013.<br>
+			</p>
+		</div>
+	</div>
+</div>
+</div>
 
 {% endblock content %}

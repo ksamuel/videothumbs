@@ -6,22 +6,54 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}?ee">
+    <link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 
+    <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" type="text/css" href="{% static "css/ie8.css" %}">
+    <![endif]-->
+    <!--[if lt IE 8>
+        <link rel="stylesheet" type="text/css" href="{% static "css/ie7.css" %}">
+    <![endif]-->
+
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
+    <link rel="apple-touch-icon" href="{% static "images/apple-touch-icon.png" %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static "images/apple-touch-icon-72x72.png" %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static "images/apple-touch-icon-114x114.png" %}">
+
     <title>
-        Video Thumbs
+        Video Thumbs - Video to thumbnails converter
     </title>
+
+
+    <!-- JS
+    ================================================== -->
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+     <!--  <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.validate.js' %}"></script> <!-- (form validation) -->
+    <script type="text/javascript" src="{% static 'js/jquery.watermark.min.js' %}"></script> <!-- (form filler) -->
+    <script type="text/javascript" src="{% static 'js/waypoints.min.js' %}"></script> <!-- (sticky top menu) -->
+    <script type="text/javascript" src="{% static 'js/jquery.parallax-1.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/theme.js' %}"></script> 
 
 </head>
 
 <body class="{% block page-class %}home{% endblock page-class %}">
 
-{% block content %}
-{% endblock content %}
+    {% block content %}
+    {% endblock content %}
 
-<script src="{% static 'js/jquery-1.10.2.min.js' %}"
-         type="text/javascript" charset="utf-8" ></script>
 
 
 </body>
