@@ -3,22 +3,29 @@
 
 from __future__ import unicode_literals, absolute_import
 
-import os
 import sys
 import tempfile
 
 import djcelery
-djcelery.setup_loader()
+
+from celery.schedules import crontab
 
 from path import path
 
+USERENA_USE_MESSAGES = False
+USERENA_WITHOUT_USERNAMES = True
 PROJECT_DIR = path(__file__).realpath().parent
 SETTINGS_DIR = PROJECT_DIR.parent
 ROOT_DIR = SETTINGS_DIR.parent
 TEMP_DIR = path(tempfile.gettempdir())
 APPS_DIR = ROOT_DIR / 'apps'
+LIBS_DIR = ROOT_DIR / 'libs'
+VAR_DIR = ROOT_DIR.parent / 'var'
+IMG_DIR = VAR_DIR / 'images'
+LOG_DIR = VAR_DIR / 'log'
 
 sys.path.append(APPS_DIR)
+sys.path.append(LIBS_DIR)
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -29,10 +36,16 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': VAR_DIR / 'videothumbs.sqlite',
+    }
+}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['.*']
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -59,7 +72,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = VAR_DIR / 'media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -70,7 +83,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = VAR_DIR / 'static'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -92,13 +105,14 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '_-98i4&ubp4bn8lu7=x+9jqd@-g^bndp%zepw=!rw!a%$bis^q'
+SECRET_KEY = '_aa%snk3ks+%5*jp37#rrrpynfjepk2=!-d=@t_emk)n7_6no7'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
 
 MIDDLEWARE_CLASSES = (
@@ -111,10 +125,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'core.views'
+ROOT_URLCONF = 'videothumbs_project.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'videothumbs.wsgi.application'
+WSGI_APPLICATION = 'videothumbs_project.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -131,12 +145,34 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
-    'simple_email_confirmation',
+    'core',
+
+    'crispy_forms',
+    'djcelery_email',
     'django_extensions',
     'djcelery',
-
-    'core',
+    'south',
+    'gunicorn',
+    'rosetta',
+    'simple_email_confirmation',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+
+# Userena and Guardian settings
+ANONYMOUS_USER_ID = -1
+AUTH_PROFILE_MODULE = 'account.UserProfile'
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+USERENA_MUGSHOT_GRAVATAR = False
+USERENA_MUGSHOT_DEFAULT = 'mm' # use mystery men image as default user pic
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_ENGINE = 'redis_sessions.session'
@@ -162,7 +198,7 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
-    'videothumbss': {
+    'handlers': {
         'mail_admins': { # send a mail to admins
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -173,24 +209,36 @@ LOGGING = {
             'class':'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file':{ # write in a temp file
+        'django':{ # write in a temp file
             'level':'INFO',
-            'class':'logging.videothumbss.RotatingFileHandler',
+            'class':'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
-            'filename': os.path.join(TEMP_DIR, 'videothumbs.django.log'),
-            'maxBytes': 1000000,
-            'backupCount': 1,
+            'filename': LOG_DIR / 'django.log',
+            'maxBytes': 10000000,
+            'backupCount': 5,
+        },
+        'screenshot':{ # write in a temp file
+            'class':'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': LOG_DIR / 'screenshot.log',
+            'maxBytes': 10000000,
+            'backupCount': 5,
         },
     },
     'loggers': {
         'django.request': { # send an email to admins if a request fails
-            'videothumbss': ['mail_admins'],
+            'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
         },
-        'django.videothumbs': { # write manually to the console and the tempfile
-            'videothumbss': ['console', 'file'],
+        'django.project': {
+            'handlers': ['console', 'django'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'screenshot': {
+            'handlers': ['console', 'screenshot'],
+            'level': 'WARNING',
             'propagate': True,
         },
     }
@@ -207,20 +255,32 @@ CACHES = {
     }
 }
 
+MINUTE = 60
+HOUR = MINUTE * 60
+DAY = HOUR * 24
+CULTURAL_DOC_EXPIRATION = DAY * 7
+EVENT_EXPIRATION = DAY * 7
 
+# DB connexion caching
 CONN_MAX_AGE = 60
+
+CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_RESULT_SERIALIZER = 'pickle'
+CELERY_CREATE_MISSING_QUEUES = True
+CELERY_TIMEZONE = TIME_ZONE
+BROKER_URL = CELERY_RESULT_BACKEND = 'redis://guest@localhost:6379/'
+CELERY_RESULT_PERSISTENT = True
+CELERY_ENABLE_UTC = True
+
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+# TODO ? Migrate to official celery API http://docs.celeryproject.org/en/master/whatsnew-3.1.html
+djcelery.setup_loader()
+
+ROSETTA_MESSAGES_PER_PAGE = 50
+ROSETTA_STORAGE_CLASS = 'rosetta.storage.CacheRosettaStorage'
 
 AUTH_USER_MODEL = 'core.User'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 DOMAINE_NAME = 'videothumbs'
-
-BROKER_URL = CELERY_RESULT_BACKEND = "redis://localhost/0"
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass
