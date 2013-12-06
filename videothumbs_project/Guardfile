@@ -15,3 +15,5 @@ Task.add('../apps/core/static/less/style.less',
 Task.add('../apps/core/static/img/')
 
 Task.add('../apps/core/templates/')
+Task.add('../apps/account/templates/')
+Task.add('../apps/event/templates/')

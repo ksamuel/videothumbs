@@ -1,5 +1,0 @@
-#!/bin/bash
-# This hook is run after this virtualenv is activated.
-
-echo 'Set DJANGO_SETTINGS_MODULE="swaaper_project.settings.dev"'
-export DJANGO_SETTINGS_MODULE="swaaper_project.settings.dev"

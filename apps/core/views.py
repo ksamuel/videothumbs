@@ -12,7 +12,7 @@ from django.shortcuts import redirect, get_object_or_404
 
 from django_quicky import routing, view
 
-from .tasks import send_admin_page_url, send_confirmation_email
+from .mail import send_admin_page_url, send_confirmation_email
 
 url, urlpatterns = routing()
 urlpatterns.add_admin('hfjqgfydsqfbqsdklfh/admin/')
@@ -36,7 +36,7 @@ def confirm(request, username, key):
     if not user.is_confirmed:
         return {'type': 'error', 'message': 'Invalid confirmation key.'}
 
-    send_admin_page_url.delay(user.username, user.email)
+    send_admin_page_url(user.username, user.email)
 
     return redirect('admin', username=username)
 
@@ -70,12 +70,12 @@ def home(request):
                                             email=email)
 
         if user.is_confirmed:
-            send_admin_page_url.delay(user.username, user.email)
+            send_admin_page_url(user.username, user.email)
             return {'type': 'success',
                     'message': "We sent you a reminder of you admin URL by email."}
 
         else:
-            send_confirmation_email.delay(user.username, user.confirmation_key,
+            send_confirmation_email(user.username, user.confirmation_key,
                                           user.email)
             return {'type': 'success',
                     'message': "Check your emails for a confirmation link."}
