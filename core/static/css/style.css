@@ -311,7 +311,7 @@ textarea, input { outline: none; }
 	padding-right:20px;
 }
 .theme-form input[type=submit]:hover{
-	background:url(../images/icon-arrow-right.png) no-repeat 154px 22px #a4c956;
+	background:url(../images/icon-arrow-right.png) no-repeat 200px 24px #a4c956;
 	-webkit-transition: background-color 200ms linear;
 	-moz-transition: background-color 200ms linear;
 	-o-transition: background-color 200ms linear;
