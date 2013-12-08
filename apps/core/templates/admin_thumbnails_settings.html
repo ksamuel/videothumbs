@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load browsing %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+{% block content %}
+
+{% admin_menu request username tab %}
+
+<div class="wrap">
+
+    {% admin_header request %}
+
+    <div class="content container">
+        <div class="top-margin"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-edit"></i>
+                            Thumbnails Settings
+                        </h4>
+                    </header>
+                    <div class="body">
+                        <form class="form-horizontal" method="post">
+                            <fieldset>
+                                <legend class="section">Set your thumbnails preferences, size, filters, number of thumbs, etc</legend>
+
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4><i class="fa fa-ban"></i> <strong>Oh snap! You got an error!</strong></h4>
+                                    <p>Something goes wrong while processing your request, try again later.</p>
+                                </div>
+                                <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <strong><i class="fa fa-check"></i> Well Done!</strong> Your settings have been saved. <br>You can now start uploading a video and start thumbnailing.
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="normal-field">Name your settings
+                                    </label>
+                                    <div class="controls form-group">
+                                        <div class="input-group ">
+                                            <div class="input-group-btn">
+                                                {{ form.name }}
+                                                <button type="button" 
+                                                    data-original-title="Edit current setting"
+                                                    data-placement="top"
+                                                    data-container="body"
+                                                    class="btn btn-danger tooltip-enabled"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" 
+                                                    data-placement="top"
+                                                    data-container="body"
+                                                    data-original-title="Create new setting"
+                                                    class="btn btn-warning tooltip-enabled"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="number">
+                                        Width
+                                    </label>
+                                    <div class="controls form-group">
+                                        <div class="col-sm-2">
+                                            {{ form.width }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="number">
+                                        Height
+                                    </label>
+                                    <div class="controls form-group">
+                                        <div class="col-sm-2">
+                                            {{ form.height }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="normal-field">Number of screenshots
+                                    </label>
+                                    <div class="controls form-group">
+                                        <div class="col-sm-2">
+                                            {{ form.screenshots }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                <label for="simple-switch" class="control-label">Trim black borders ?</label>
+                                <div class="controls form-group">
+                                    <label class="checkbox inline">
+                                        <span class="switch switch-small" data-on="primary" data-off="danger">
+                                            {{ form.trim }}
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="form-actions">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button type="button" class="btn btn-default">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% admin_footer request %}
+
+
+{% endblock content %}
+
+

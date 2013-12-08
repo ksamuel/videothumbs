@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load browsing %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+{% block content %}
+
+{% admin_menu request username tab %}
+
+<div class="wrap">
+
+    {% admin_header request %}
+
+    <div class="content container">
+        <div class="top-margin"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-credit-card"></i>
+                            Buy credits
+                        </h4>
+                    </header> 
+
+                    <div class="body">
+                        <fieldset>
+                            <legend class="section">
+                                Each time you make video thumbnails it cost <b>1</b> credit.
+                                You get <b>5</b> credits per day for free. <br>
+                                You can buy credit to make more videos screenshot without waiting for new free credit. <br>
+                                You can pay via paypal, it is safe and quick.
+                            </legend>
+
+                        <div class="form-group col-md-5 center">
+                            <div class="input-group">
+                                <select class="form-control" id="buy_credits">
+                                    <option value="20">20$ - 10,000 credits</option>
+                                    <option value="50">50$ - 50,000 credits</option>
+                                    <option value="100">100$ - 200,000 credits</option>
+                                </select>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-success" tabindex="-1">Buy Credits</button>
+                                </div>
+                            </div> 
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-bar-chart-o"></i>
+                            Previous transactions
+                        </h4>
+                    </header> 
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th class="hidden-xs-portrait">Credits</th>
+                            <th>Email</th>
+                            <th class="hidden-xs-portrait">Invoice</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>12/04/13</td>
+                            <td>$100</td>
+                            <td>200,000</td>
+                            <td><a href="#">ottoto@example.com</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">
+                                    View invoice
+                                </button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>2</td>
+                            <td>12/04/13</td>
+                            <td>$100</td>
+                            <td>200,000</td>
+                            <td><a href="#">ottoto@example.com</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">
+                                    View invoice
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </section>
+
+
+                <section class="widget invoice" >
+                    <div class="body no-margin">
+                        <hr>
+                        <section class="invoice-info well">
+                        <div class="row">
+                            <div class="col-sm-6 col-print-6">
+                                <img src="{% static "images/logo.png" %}" alt="Logo" class="invoice-logo"/>
+                            </div>
+                            <div class="col-sm-6 col-print-6">
+                                <div class="invoice-number text-align-right">
+                                    #23 / 14 Dec 2013
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-print-6">
+                                    <h3 class="company-name">
+                                        VideoThumbs LLC
+                                    </h3>
+                                    <address>
+                                        <strong>2 Infinite Loop</strong><br>
+                                        Minsk, Belarus 220004<br>
+                                        088.253.5345<br>
+                                        <abbr title="Work email">e-mail:</abbr> <a href="mailto:#">sales@videothumbs.com</a><br>
+                                    </address>
+                                </div>
+                                <!--
+                                <div class="col-sm-6 col-print-6 client-details">
+                                    <h4 class="details-title">Client Information</h4>
+                                    <h3 class="client-name">
+                                        Veronica Niasvizhskaja
+                                    </h3>
+                                    <address>
+                                        <strong>Consultant</strong> at
+                                        <strong><a href="#">Allspana</a></strong><br>
+                                        <abbr title="Work email">e-mail:</abbr> <a href="mailto:#">maryna@allspana.by</a><br>
+                                        <abbr title="Work Phone">phone:</abbr> (012) 345-678-901<br>
+                                        <abbr title="Work Fax">fax:</abbr> (012) 678-132-901
+                                        <div class="separator line"></div>
+                                    </address>
+                                </div>
+                            -->
+                            </div>
+                        </section>
+                        <br>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th class="hidden-xs">Price per Unit</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>200,000 credits</td>
+                                <td>1</td>
+                                <td class="hidden-xs">100</td>
+                                <td>100.00</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6 col-print-6">
+                                <blockquote>
+                                    <strong>Note:</strong> One we will we receive the paiement your account will be credited.
+                                </blockquote>
+                            </div>
+                            <div class="col-sm-6 col-print-6">
+                                <div class="row text-align-right">
+                                    <div class="col-xs-6"></div> <!-- instead of offset -->
+                                    <div class="col-xs-3">
+                                        <p>Subtotal</p>
+                                        <p class="no-margin"><strong>Total</strong></p>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <p>100.00</p>
+                                        <p class="no-margin"><strong>100.00</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="invoice-actions text-align-right hidden-print">
+                            <button id="print" class="btn btn-inverse">
+                                <i class="fa fa-print"></i>
+                                &nbsp;&nbsp;
+                                Print
+                            </button>
+                            <button id="print" class="btn btn-danger">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% admin_footer request %}
+
+
+{% endblock content %}
+
+

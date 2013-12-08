@@ -9,8 +9,12 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, get_object_or_404
+from django.forms.models import modelform_factory
+from django.forms import widgets
 
 from django_quicky import routing, view
+
+from apps.core.models import Options
 
 from .mail import send_admin_page_url, send_confirmation_email
 
@@ -18,8 +22,6 @@ url, urlpatterns = routing()
 urlpatterns.add_admin('hfjqgfydsqfbqsdklfh/admin/')
 
 User = get_user_model()
-
-
 
 
 @url('confirm/(?P<username>\w+)/(?P<key>\w+)/?')
@@ -42,11 +44,79 @@ def confirm(request, username, key):
 
 
 
-@url('user/(?P<username>\w+)/admin/?')
-@view('admin.html')
-def admin(request, username):
+@url('user/(?P<username>\w+)/admin/thumbnails-settings/?')
+@view('admin_thumbnails_settings.html')
+def admin_thumbnails_settings(request, username):
 
     user = get_object_or_404(User, username=username)
+    tab = 'settings'
+    form = modelform_factory(Options,
+                             widgets={"width": widgets.NumberInput(attrs={'class' : 'form-control tooltip-enabled',
+                                                                          'data-placement' : 'top',
+                                                                          'data-container' : 'body',
+                                                                          'data-original-title' : Options._meta.get_field('width').help_text}),
+                                      "height": widgets.NumberInput(attrs={'class' : 'form-control tooltip-enabled',
+                                                                                  'data-placement' : 'top',
+                                                                                  'data-container' : 'body',
+                                                                                  'data-original-title' : Options._meta.get_field('height').help_text}),
+                                      "screenshots": widgets.NumberInput(attrs={'class' : 'form-control tooltip-enabled',
+                                                                                  'data-placement' : 'top',
+                                                                                  'data-container' : 'body',
+                                                                                  'data-original-title' : Options._meta.get_field('screenshots').help_text}),
+                                      "name": widgets.Select(attrs={'class' : 'form-control tooltip-enabled',
+                                                                                  'data-placement' : 'top',
+                                                                                  'style' : 'width:50%',
+                                                                                  'data-container' : 'body',
+                                                                                  'data-original-title' : Options._meta.get_field('name').help_text}),
+                                      "trim": widgets.CheckboxInput(attrs={'class' : 'form-control tooltip-enabled',
+                                                                                  'data-placement' : 'top',
+                                                                                  'data-container' : 'body',
+                                                                                  'data-original-title' : Options._meta.get_field('trim').help_text})
+                                     }
+                             )
+    return locals()
+
+
+@url('user/(?P<username>\w+)/admin/upload-video/?')
+@view('admin_upload_video.html')
+def admin_upload_video(request, username):
+
+    user = get_object_or_404(User, username=username)
+    tab = 'upload'
+    form = modelform_factory(Options, widgets={"name": widgets.Select(attrs={'style' : 'width:50%'}) } )
+    return locals()
+
+
+@url('user/(?P<username>\w+)/admin/your-thumbnails/?')
+@view('admin_your_thumbnails.html')
+def admin_your_thumbnails(request, username):
+
+    user = get_object_or_404(User, username=username)
+    tab = 'thumbnails'
+    return locals()
+
+
+@url('user/(?P<username>\w+)/admin/api/?')
+@view('admin_api.html')
+def admin_api(request, username):
+
+    user = get_object_or_404(User, username=username)
+    tab = 'api'
+    return locals()
+
+
+@url('user/(?P<username>\w+)/admin/buy-credits/?')
+@view('admin_buy_credits.html')
+def admin_buy_credits(request, username):
+
+    user = get_object_or_404(User, username=username)
+    tab = 'buy'
+    return locals()
+
+
+@url('404')
+@view('404.html')
+def error_404(request):
     return locals()
 
 

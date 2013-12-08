@@ -3,33 +3,46 @@
 {% block page-class %}home{% endblock page-class %}
 
 {% load static %}
+
+
+{% block additional-metas %}
+    <!-- CSS
+    ================================================== -->
+
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}?ee">
+    <link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+    <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
+
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" type="text/css" href="{% static "css/ie8.css" %}">
+    <![endif]-->
+    <!--[if lt IE 8>
+        <link rel="stylesheet" type="text/css" href="{% static "css/ie7.css" %}">
+    <![endif]-->
+
+
+    <!-- JS
+    ================================================== -->
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+     <!--  <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.validate.js' %}"></script> <!-- (form validation) -->
+    <script type="text/javascript" src="{% static 'js/jquery.watermark.min.js' %}"></script> <!-- (form filler) -->
+    <script type="text/javascript" src="{% static 'js/waypoints.min.js' %}"></script> <!-- (sticky top menu) -->
+    <script type="text/javascript" src="{% static 'js/jquery.parallax-1.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/theme.js' %}"></script> 
+{% endblock %}
+
+
+
 {% block content %}
 
 {% if message %}
   <p class="{{ type }}">{{ message }}</p>
 {% endif %}
-
-
-
-<!-- TOP MENU
-==================================================
-<div class="lock-header hidden-phone">
-	<div class="container">
-		<div class="row">
-			<div class="span4 offset2">
-				<h4>We're working in our site. <span>Socialize:</span></h4>
-			</div>
-			<div class="span4">
-			<a href="#"><img src="{% static 'images/Facebook.png' %}" alt="HOME"></a>
-			<a href="#"><img src="{% static 'images/Pinterest.png' %}" alt="HOME"></a>
-			<a href="#"><img src="{% static 'images/Twitter.png' %}" alt="HOME"></a>
-			<a href="#"><img src="{% static 'images/Feed.png' %}" alt="HOME"></a>
-			<a href="#"><img src="{% static 'images/Share-This.png' %}" alt="HOME"></a>
-			</div>
-		</div>
-	</div>
-</div> -->
-
 
 <div class="page-wrapper">
 	<div class="agency-wrap">
@@ -53,7 +66,7 @@
 						<h4>Post your video or use our API to get back clear thumbnails at desired size and number.</h4>
 						<form action="." method="post" accept-charset="utf-8" id="subForm" class="theme-form sign-up-form">
 						  <p>
-							<input type="email" name="email" id="email" class="email required" value="youremail@here.com" title="">
+							<input type="text" name="email" id="email" class="email required" title="">
 						    <input type="submit" value="Request an account" >
 						  </p>
 						  {% csrf_token %}

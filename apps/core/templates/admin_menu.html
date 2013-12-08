@@ -1,0 +1,23 @@
+<div class="logo">
+    <h4><a href="#">Video<strong>Thumbs</strong></a></h4>
+</div>
+
+<nav id="sidebar" class="sidebar nav-collapse collapse">
+    <ul id="side-nav" class="side-nav">
+        <li class="{% if tab == "settings" %}active{% endif %} panel" >
+            <a href="{% url 'admin_thumbnails_settings' username=username %}"><i class="fa fa-edit"></i> <span class="name">Thumbs settings</span></a>
+        </li>
+        <li class="{% if tab == "upload" %}active{% endif %} panel" >
+            <a href="{% url 'admin_upload_video' username=username %}"><i class="fa fa-film"></i> <span class="name">Upload Videos</span></a>
+        </li>
+        <li class="{% if tab == "thumbnails" %}active{% endif %} panel" >
+            <a href="{% url 'admin_your_thumbnails' username=username %}"><i class="fa fa-list"></i> <span class="name">Your thumbnails</span></a>
+        </li>
+        <li class="{% if tab == "api" %}active{% endif %} panel" >
+            <a href="{% url 'admin_api' username=username %}"><i class="fa fa-magic"></i> <span class="name">Api</span></a>
+        </li>
+        <li class="{% if tab == "buy" %}active{% endif %} panel" >
+            <a href="{% url 'admin_buy_credits' username=username %}"><i class="fa fa-credit-card"></i> <span class="name">Buy credits</span></a>
+        </li>
+    </ul>
+</nav>

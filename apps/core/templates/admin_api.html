@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load browsing %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+{% block content %}
+
+{% admin_menu request username tab %}
+
+<div class="wrap">
+
+    {% admin_header request %}
+
+    <div class="content container">
+        <div class="top-margin"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-magic"></i>
+                            Api
+                        </h4>
+                    </header> 
+
+                    <div class="body">
+                        <fieldset>
+                                <legend class="section">Use our Api to batch your process and make quickly thumbnails of your videos.
+                                </legend>
+
+                        <div class="panel-group" id="accordion3">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapseOneTwo">
+                                        Quick Start
+                                    </a>
+                                </div>
+                                <div id="collapseOneTwo" class="panel-collapse in collapse">
+                                    <div class="panel-body">
+                                        <p>
+                                            Try this, one line motherfucker !
+                                        </p>
+                                        <br>
+                                        <blockquote>
+                                            <code>
+                                                Curl http://videothumbs.io/api?id=23423
+                                            </code>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwoTwo">
+                                        Uses Cases
+                                    </a>
+                                </div>
+                                <div id="collapseTwoTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Why don't use Lore Ipsum? I think if some one says don't use lore ipsum it's very controversial point. I think the opposite actually. Everyone knows what is lore ipsum - it is
+                                        easy to understand if text is lore ipsum. You'll automatically skip - because you know - it's just non-informative stub. But what if there some text like this one? You start to read it!
+                                        But the goal of this text is different. The goal is the example. So a bit of Lore Ipsum is always very good practice. Keep it in mind!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapseThreeTwo">
+                                        Porn time
+                                    </a>
+                                </div>
+                                <div id="collapseThreeTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <iframe width="590" height="480" src="http://www.sextvx.com/fr/embed/407371" frameborder="0" scrolling="no"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% admin_footer request %}
+
+
+{% endblock content %}
+
+

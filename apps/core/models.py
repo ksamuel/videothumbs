@@ -50,9 +50,9 @@ class Options(models.Model):
                                                         "video ?")
 
     width = models.PositiveIntegerField(default=240,
-                                        help_text="Max width of the thumbnails."),
+                                        help_text="Max width of the thumbnails.")
     height = models.PositiveIntegerField(default=180,
-                                        help_text="Max height of the thumbnails."),
+                                        help_text="Max height of the thumbnails.")
 
     ratio_policy = models.CharField(max_length=32, default='crop',
                                     choices=RATIO_POLICY,
@@ -78,6 +78,10 @@ class Options(models.Model):
     name = models.CharField(max_length=128,
                             help_text="A name to save the options so you can "
                                       "reuse them later.")
+
+
+    trim = models.BooleanField(default=False,
+                            help_text="Remove the black borders of the video.")
 
 
     def __unicode__(self):

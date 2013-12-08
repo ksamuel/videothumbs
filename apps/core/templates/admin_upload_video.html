@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% load browsing %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+{% block content %}
+
+{% admin_menu request username tab %}
+
+<!--
+Light Blue fileupload is based on great jQuery FileUpload plugin http://blueimp.github.com/jQuery-File-Upload/ https://github.com/blueimp/jQuery-File-Upload/wiki . Just drag & drop files.
+
+ File Upload widget with multiple file selection, drag&drop support, progress bars and preview images for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.
+lib/jquery.iframe-transport.js
+lib/jquery.fileupload.js
+lib/jquery.fileupload-fp.js
+lib/jquery.fileupload-ui.js -->
+
+<div class="wrap">
+
+    {% admin_header request %}
+
+    <div class="content container">
+        <div class="top-margin"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-film"></i>
+                            Upload Video to screenshot
+                        </h4>
+                    </header>
+                    <div class="body">
+                        <fieldset>
+                            <legend class="section">Select settings to use and upload your video(s). process may take a while depending on video size and settings used.</legend>
+
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-1">
+
+                                    <div class="alert alert-danger">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="fa fa-ban"></i> <strong>Oh snap! You got an error!</strong></h4>
+                                        <p>Something goes wrong with your upload, try again or go hell!</p>
+                                    </div>
+                                    <div class="alert alert-success">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <strong><i class="fa fa-check"></i> Well done!</strong> You successfully uploaded your video(s), you will receive an email when the thumbnails will be ready. you can close this page.
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="normal-field">Choose your settings
+                                        </label>
+                                        <div class="controls form-group">
+                                            <div class="input-group ">
+                                                <div class="input-group-btn">
+                                                    {{ form.name }}
+                                                    {% if not form.name.count %}
+                                                    <a href="{% url 'admin_thumbnails_settings' username=username %}">No settings yet ? clic here</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <section class="widget">
+                                        <div class="body">
+                                            <form id="fileupload" action="server/php" method="POST" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div id="dropzone"  class="dropzone">
+                                                            Drop video(s) here
+                                                            <i class="fa fa-download-alt pull-right"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 fileupload-progress fade">
+                                                        <!-- The global progress bar -->
+                                                        <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                                            <div class="bar" style="width:0%;"></div>
+                                                        </div>
+                                                        <!-- The extended global progress information -->
+                                                        <div class="progress-extended">&nbsp;</div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-actions fileupload-buttonbar no-margin">
+                                                    <span class="btn btn-sm btn-default fileinput-button">
+                                                            <i class="fa fa-plus"></i>
+                                                            <span>Add video(s)...</span>
+                                                            <input type="file" name="files[]" multiple="">
+                                                        </span>
+                                                    <button type="submit" class="btn btn-primary btn-sm start">
+                                                        <i class="fa fa-upload"></i>
+                                                        <span>Start upload</span>
+                                                    </button>
+                                                    <button type="reset" class="btn btn-inverse btn-sm cancel">
+                                                        <i class="fa fa-ban"></i>
+                                                        <span>Cancel upload</span>
+                                                    </button>
+                                                </div>
+                                                <div class="fileupload-loading"><i class="fa fa-spin fa-spinner"></i></div>
+                                                <!-- The table listing the files available for upload/download -->
+                                                <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% admin_footer request %}
+
+<script src="{% static "js/vendor/jquery.ui.widget.js" %}"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="{% static "js/vendor/http_blueimp.github.io_JavaScript-Templates_js_tmpl.js" %}"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="{% static "js/vendor/http_blueimp.github.io_JavaScript-Load-Image_js_load-image.js" %}"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="{% static "js/vendor/http_blueimp.github.io_JavaScript-Canvas-to-Blob_js_canvas-to-blob.js" %}"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="{% static "js/jquery.iframe-transport.js" %}"></script>
+<!-- The basic File Upload plugin -->
+<script src="{% static "js/jquery.fileupload.js" %}"></script>
+<!-- The File Upload file processing plugin -->
+<script src="{% static "js/jquery.fileupload-fp.js" %}"></script>
+<!-- The File Upload user interface plugin -->
+<script src="{% static "js/jquery.fileupload-ui.js" %}"></script>
+
+<!-- page specific -->
+<script src="{% static "js/fileupload.js" %}"></script>
+
+{% verbatim %}
+<script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td class="preview"><span class="fade"></span></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+        <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+        <td>
+            <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="bar" style="width:0%;"></div>
+            </div>
+        </td>
+        <td>{% if (!o.options.autoUpload) { %}
+            <button class="btn btn-primary btn-sm start">
+                <i class="fa fa-upload"></i>
+                <span>Start</span>
+            </button>
+            {% } %}</td>
+        {% } else { %}
+        <td colspan="2"></td>
+        {% } %}
+        <td>{% if (!i) { %}
+            <button class="btn btn-warning btn-sm cancel">
+                <i class="fa fa-ban"></i>
+                <span>Cancel</span>
+            </button>
+            {% } %}</td>
+    </tr>
+    {% } %}
+</script>
+
+<!-- The template to display files available for download -->
+
+<script id="template-download" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        {% if (file.error) { %}
+        <td></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+        {% } else { %}
+        <td class="preview">{% if (file.thumbnail_url) { %}
+            <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>
+        <td class="name">
+            <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+        </td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        <td colspan="2"></td>
+        {% } %}
+        <td>
+            <button class="btn btn-danger btn-sm delete" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"{% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+            <i class="fa fa-trash"></i>
+            <span>Delete</span>
+            </button>
+        </td>
+    </tr>
+    {% } %}
+</script>
+
+<script type="text/template" id="settings-template">
+    <div class="setting clearfix">
+        <div>Background</div>
+        <div id="background-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+            <% dark = background == 'dark'; light = background == 'light';%>
+            <button type="button" data-value="dark" class="btn btn-sm btn-transparent <%= dark? 'active' : '' %>">Dark</button>
+            <button type="button" data-value="light" class="btn btn-sm btn-transparent <%= light? 'active' : '' %>">Light</button>
+        </div>
+    </div>
+    <div class="setting clearfix">
+        <div>Sidebar on the</div>
+        <div id="sidebar-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+            <% onRight = sidebar == 'right'%>
+            <button type="button" data-value="left" class="btn btn-sm btn-transparent <%= onRight? '' : 'active' %>">Left</button>
+            <button type="button" data-value="right" class="btn btn-sm btn-transparent <%= onRight? 'active' : '' %>">Right</button>
+        </div>
+    </div>
+    <div class="setting clearfix">
+        <div>Sidebar</div>
+        <div id="display-sidebar-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+            <% display = displaySidebar%>
+            <button type="button" data-value="true" class="btn btn-sm btn-transparent <%= display? 'active' : '' %>">Show</button>
+            <button type="button" data-value="false" class="btn btn-sm btn-transparent <%= display? '' : 'active' %>">Hide</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="sidebar-settings-template">
+        <% auto = sidebarState == 'auto'%>
+        <% if (auto) {%>
+            <button type="button"
+                    data-value="icons"
+                    class="btn-icons btn btn-transparent btn-sm">Icons</button>
+    <button type="button"
+            data-value="auto"
+            class="btn-auto btn btn-transparent btn-sm">Auto</button>
+        <%} else {%>
+            <button type="button"
+                    data-value="auto"
+                    class="btn btn-transparent btn-sm">Auto</button>
+        <% } %>
+</script>
+
+
+{% endverbatim %}
+
+
+
+{% endblock content %}
+
+
