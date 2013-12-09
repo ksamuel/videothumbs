@@ -16210,6 +16210,11 @@ a {
   margin-right: 0;
 }
 
+.welcome {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
 .logo.sidebar-icons {
   left: 1.6%;
   padding-left: 5px;
@@ -16643,7 +16648,7 @@ input.parsley-error {
   font-weight: normal;
   padding: 3px 2%;
   color: white;
-  width: 20.625%;
+  width: 45.6%;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;

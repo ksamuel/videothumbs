@@ -53,6 +53,7 @@
                                                 <button type="button" 
                                                     data-placement="top"
                                                     data-container="body"
+                                                    href="#myModal" data-toggle="modal"
                                                     data-original-title="Create new setting"
                                                     class="btn btn-warning tooltip-enabled"><i class="fa fa-plus"></i></button>
                                             </div>
@@ -114,6 +115,33 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Save your settings</h4>
+            </div>
+            <div class="modal-body">
+                <div class="control-group">
+                    <label class="control-label" for="elastic-textarea">
+                        Name your settings to use them later for video thumbnailing.
+                    </label>
+                    <div class="controls form-group">
+                        <input type="text" class="form-control" placeholder="your settings..."></input>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default btn-sm">Close</button>
+                <button class="btn btn-primary btn-sm">Save Settings</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 {% admin_footer request %}
 

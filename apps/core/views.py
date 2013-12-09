@@ -44,6 +44,7 @@ def confirm(request, username, key):
 
 
 
+
 @url('user/(?P<username>\w+)/admin/thumbnails-settings/?')
 @view('admin_thumbnails_settings.html')
 def admin_thumbnails_settings(request, username):
@@ -117,6 +118,15 @@ def admin_buy_credits(request, username):
 @url('404')
 @view('404.html')
 def error_404(request):
+    return locals()
+
+
+@url('user/(?P<username>\w+)/admin/?')
+@view('admin_dashboard.html')
+def admin(request, username):
+
+    user = get_object_or_404(User, username=username)
+    tab = 'dashboard'
     return locals()
 
 

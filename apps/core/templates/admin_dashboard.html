@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load browsing %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+{% block content %}
+
+{% admin_menu request username tab %}
+
+<div class="wrap">
+
+    {% admin_header request %}
+
+    <div class="content container">
+        <div class="top-margin"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-home"></i>
+                            Dashboard
+                        </h4>
+                    </header>
+                    <div class="body">
+                        <fieldset>
+                            <legend class="section">Welcome to VideoThumbs, here is a resume of your activity.</legend>
+
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <section class="widget large">
+                                    <header>
+                                        <h4>
+                                            <i class="eicon-share"></i>
+                                            Recent activity
+                                        </h4>
+                                    </header>
+                                    <div class="body">
+                                        <div id="feed" class="feed">
+                                            <div class="wrapper">
+                                                <div class="vertical-line"></div>
+                                                <section class="feed-item">
+                                                    <div class="icon pull-left">
+                                                        <i class="fa fa-credit-card"></i>
+                                                    </div>
+                                                    <div class="feed-item-body">
+                                                        <div class="text">
+                                                            Ordered 100,000 credits. Invoice available <a href="#">here</a>.
+                                                        </div>
+                                                        <div class="time pull-left">
+                                                            3 h
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <section class="feed-item">
+                                                    <div class="icon pull-left">
+                                                        <i class="fa fa-check color-green"></i>
+                                                    </div>
+                                                    <div class="feed-item-body">
+                                                        <div class="text">
+                                                            Batch done for video #1232 - ouaguabougua.avi. <a href="#">Thumbnails availables here</a>.
+                                                        </div>
+                                                        <div class="time pull-left">
+                                                            10 h
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                                <section class="feed-item">
+                                                    <div class="icon pull-left">
+                                                        <i class="fa fa-gift color-orange"></i>
+                                                    </div>
+                                                    <div class="feed-item-body">
+                                                        <div class="text">
+                                                            You get 5 free credits. Thanks for using VideoThumbs.
+                                                        </div>
+                                                        <div class="time pull-left">
+                                                            Yesterday
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+
+                            <div class="col-md-4 col-sm-6">
+                                <section class="widget large">
+                                    <header>
+                                        <h4><i class="fa fa-bar-chart-o"></i> Available credits</h4>
+                                    </header>
+                                    <div class="body">
+                                        <div id="sources-chart-pie" class="chart pie-chart">
+                                            <svg></svg>
+                                        </div>
+                                    </div>
+                                    <footer id="data-chart-footer" class="pie-chart-footer">
+                                    </footer>
+                                </section>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% admin_footer request %}
+
+
+<!-- page specific -->
+<script src="{% static "js/index.js" %}"></script>
+
+<!-- page specific -->
+<script src="{% static "js/stats.js" %}"></script>
+
+{% endblock content %}
+
+
