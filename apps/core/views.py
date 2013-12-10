@@ -115,6 +115,15 @@ def admin_buy_credits(request, username):
     return locals()
 
 
+@url('user/(?P<username>\w+)/admin/contact-us/?')
+@view('admin_contact.html')
+def admin_contact(request, username):
+
+    user = get_object_or_404(User, username=username)
+    tab = 'contact'
+    return locals()
+
+    
 @url('404')
 @view('404.html')
 def error_404(request):
@@ -128,6 +137,7 @@ def admin(request, username):
     user = get_object_or_404(User, username=username)
     tab = 'dashboard'
     return locals()
+
 
 
 @url('')

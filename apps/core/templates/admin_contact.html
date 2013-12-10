@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load browsing %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+{% block content %}
+
+{% admin_menu request username tab %}
+
+<div class="wrap">
+
+    {% admin_header request %}
+
+    <div class="content container">
+        <div class="top-margin"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget">
+                    <header>
+                        <h4>
+                            <i class="fa fa-phone"></i>
+                            Contact Us
+                        </h4>
+                    </header>
+                    <div class="body">
+                        <fieldset>
+                            <legend class="section">
+                                Feel free to contact us for any question about credits, encoding, screenshot your videos. <br>
+                                Also if you have special features requests.
+                            </legend>
+
+
+                        <div style="height:100px">
+                            e-Mail: <a href="mailto:contact+{{ username }}@videothumbs.io">contact@videothumbs.io</a>
+
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% admin_footer request %}
+
+
+{% endblock content %}
+
+

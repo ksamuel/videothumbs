@@ -22,8 +22,8 @@
         <li class="{% if tab == "buy" %}active{% endif %} panel" >
             <a href="{% url 'admin_buy_credits' username=username %}"><i class="fa fa-credit-card"></i> <span class="name">Buy credits</span></a>
         </li>
-        <li class=" panel" >
-            <a href="#"><i class="fa fa-phone"></i> <span class="name">Contact Us</span></a>
+        <li class="{% if tab == "contact" %}active{% endif %} panel" >
+            <a href="{% url 'admin_contact' username=username %}"><i class="fa fa-phone"></i> <span class="name">Contact Us</span></a>
         </li>
     </ul>
 </nav>
