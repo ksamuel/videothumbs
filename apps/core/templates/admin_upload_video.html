@@ -1,12 +1,7 @@
-{% extends "base.html" %}
-{% load browsing %}
-{% load static %}
+{% extends "admin_base.html" %}
 
-{% block page-class %}admin{% endblock page-class %}
+{% block body %}
 
-{% block content %}
-
-{% admin_menu request username tab %}
 
 <!--
 Light Blue fileupload is based on great jQuery FileUpload plugin http://blueimp.github.com/jQuery-File-Upload/ https://github.com/blueimp/jQuery-File-Upload/wiki . Just drag & drop files.
@@ -17,9 +12,6 @@ lib/jquery.fileupload.js
 lib/jquery.fileupload-fp.js
 lib/jquery.fileupload-ui.js -->
 
-<div class="wrap">
-
-    {% admin_header request %}
 
     <div class="content container">
         <div class="top-margin"></div>
@@ -115,8 +107,7 @@ lib/jquery.fileupload-ui.js -->
     </div>
 </div>
 
-{% admin_footer request %}
-
+{% load static %}
 <script src="{% static "js/vendor/jquery.ui.widget.js" %}"></script>
 <!-- The Templates plugin is included to render the upload/download listings -->
 <script src="{% static "js/vendor/http_blueimp.github.io_JavaScript-Templates_js_tmpl.js" %}"></script>
@@ -248,6 +239,6 @@ lib/jquery.fileupload-ui.js -->
 
 
 
-{% endblock content %}
+{% endblock %}
 
 

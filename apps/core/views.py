@@ -9,12 +9,18 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, get_object_or_404
+from django.core.urlresolvers import reverse
 from django.forms.models import modelform_factory
 from django.forms import widgets
+from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 from django_quicky import routing, view
 
-from apps.core.models import Options
+from account.views import admin_login_required
+
+from .models import ThumbnailSettings
+from .forms import ThumbnailSettingsForm
 
 from .mail import send_admin_page_url, send_confirmation_email
 
@@ -24,9 +30,13 @@ urlpatterns.add_admin('hfjqgfydsqfbqsdklfh/admin/')
 User = get_user_model()
 
 
+
 @url('confirm/(?P<username>\w+)/(?P<key>\w+)/?')
 @view('confirm.html')
 def confirm(request, username, key):
+    """
+        Confirm email adress using the confirmatino key sent by email.
+    """
 
     user = get_object_or_404(User, username=username)
 
@@ -44,9 +54,35 @@ def confirm(request, username, key):
 
 
 
+class ThumbnailSettingsList(generic.ListView):
 
-@url('user/(?P<username>\w+)/admin/thumbnails-settings/?')
-@view('admin_thumbnails_settings.html')
+    template_name = 'admin_thumbnails_settings.html'
+    context_object_name = 'thumbnails_settings'
+
+    def get_queryset(self):
+        return ThumbnailSettings.objects.filter(user=self.request.user)
+
+thumbnail_settings_list = admin_login_required(ThumbnailSettingsList.as_view())
+
+
+
+class CreateThumbnailSettings(generic.CreateView):
+
+    template_name = 'create_thumbnails_settings.html'
+    form_class = ThumbnailSettingsForm
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(CreateThumbnailSettings, self).get_form_kwargs(**kwargs)
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('admin_thumbnails_settings',
+                       kwargs={'username': self.request.user.username})
+
+create_thumbnails_settings = admin_login_required(CreateThumbnailSettings.as_view())
+
+
 def admin_thumbnails_settings(request, username):
 
     user = get_object_or_404(User, username=username)
@@ -123,24 +159,22 @@ def admin_contact(request, username):
     tab = 'contact'
     return locals()
 
-    
+
 @url('404')
 @view('404.html')
 def error_404(request):
     return locals()
 
 
-@url('user/(?P<username>\w+)/admin/?')
+@url('user/(?P<username>\w+)/admin/?$')
 @view('admin_dashboard.html')
 def admin(request, username):
-
     user = get_object_or_404(User, username=username)
     tab = 'dashboard'
     return locals()
 
 
-
-@url('')
+@url('^$')
 @view('home.html')
 def home(request):
 

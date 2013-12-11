@@ -1,16 +1,9 @@
-{% extends "base.html" %}
-{% load browsing %}
+{% extends "admin_base.html" %}
+
 {% load static %}
 
-{% block page-class %}admin{% endblock page-class %}
+{% block body %}
 
-{% block content %}
-
-{% admin_menu request username tab %}
-
-<div class="wrap">
-
-    {% admin_header request %}
 
     <div class="content container">
         <div class="top-margin"></div>
@@ -22,7 +15,7 @@
                             <i class="fa fa-credit-card"></i>
                             Buy credits
                         </h4>
-                    </header> 
+                    </header>
 
                     <div class="body">
                         <fieldset>
@@ -43,7 +36,7 @@
                                 <div class="input-group-btn">
                                     <button class="btn btn-success" tabindex="-1">Buy Credits</button>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
 
                     </div>
@@ -56,7 +49,7 @@
                             <i class="fa fa-bar-chart-o"></i>
                             Previous transactions
                         </h4>
-                    </header> 
+                    </header>
 
                     <table class="table table-striped">
                         <thead>
@@ -83,7 +76,7 @@
                                 </button>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>2</td>
                             <td>12/04/13</td>
@@ -210,10 +203,6 @@
 </div>
 
 
-
-{% admin_footer request %}
-
-
-{% endblock content %}
+{% endblock %}
 
 

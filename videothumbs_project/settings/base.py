@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    'account',
     'core',
 
     'crispy_forms',
@@ -281,6 +282,25 @@ djcelery.setup_loader()
 ROSETTA_MESSAGES_PER_PAGE = 50
 ROSETTA_STORAGE_CLASS = 'rosetta.storage.CacheRosettaStorage'
 
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'account.User'
 
 DOMAINE_NAME = 'videothumbs'
+
+
+AUTHENTICATION_BACKENDS = (
+    'account.backends.UsernameAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages"
+)
+
+

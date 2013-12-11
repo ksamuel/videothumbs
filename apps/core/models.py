@@ -5,24 +5,14 @@
 from __future__ import unicode_literals, absolute_import
 
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
 from django_extensions.db.fields import UUIDField, CreationDateTimeField
 
-from simple_email_confirmation import SimpleEmailConfirmationUserMixin
-
 from libs.serialized_redis import client as redis
 
 
-class User(SimpleEmailConfirmationUserMixin, AbstractUser):
-    """
-        Custom user with email confirmation.
-    """
-    uuid = UUIDField(db_index=True)
-
-
-class Options(models.Model):
+class ThumbnailSettings(models.Model):
 
     GRAVITY = (
         ("northwest", "NorthWest"),
@@ -41,8 +31,9 @@ class Options(models.Model):
         ("crop", "Crop to fit"),
     )
 
+
     uuid = UUIDField(primary_key=True)
-    user = models.ForeignKey(User, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False)
 
     screenshots = models.PositiveIntegerField(default=1,
                                               help_text="How many sceenshots "
@@ -55,7 +46,7 @@ class Options(models.Model):
                                         help_text="Max height of the thumbnails.")
 
     ratio_policy = models.CharField(max_length=32, default='crop',
-                                    choices=RATIO_POLICY,
+                                    choices=RATIO_POLICY, blank=True,
                                     help_text=("In case the screenshot does "
                                              "not fit in the thumbnail size"
                                              " without destroying the "
@@ -72,7 +63,8 @@ class Options(models.Model):
                                          "tell us what part of the picture "
                                          "to preserve from being removed. "
                                          "This has no effect if your ratio "
-                                         "policy is set to 'overflow'")
+                                         "policy is set to 'overflow'",
+                                         blank=True)
 
 
     name = models.CharField(max_length=128,
@@ -102,7 +94,7 @@ class Batch(models.Model):
     STATUS_DICT = dict(STATUS)
 
     uuid = UUIDField(primary_key=True)
-    options = models.ForeignKey(Options)
+    options = models.ForeignKey(ThumbnailSettings)
     created = CreationDateTimeField()
 
     @classmethod

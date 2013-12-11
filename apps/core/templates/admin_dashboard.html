@@ -1,16 +1,6 @@
-{% extends "base.html" %}
-{% load browsing %}
-{% load static %}
+{% extends "admin_base.html" %}
 
-{% block page-class %}admin{% endblock page-class %}
-
-{% block content %}
-
-{% admin_menu request username tab %}
-
-<div class="wrap">
-
-    {% admin_header request %}
+{% block body %}
 
     <div class="content container">
         <div class="top-margin"></div>
@@ -112,9 +102,7 @@
     </div>
 </div>
 
-
-{% admin_footer request %}
-
+{% load static %}
 
 <!-- page specific -->
 <script src="{% static "js/index.js" %}"></script>
@@ -122,6 +110,6 @@
 <!-- page specific -->
 <script src="{% static "js/stats.js" %}"></script>
 
-{% endblock content %}
+{% endblock  %}
 
 

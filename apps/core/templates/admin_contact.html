@@ -1,16 +1,6 @@
-{% extends "base.html" %}
-{% load browsing %}
-{% load static %}
+{% extends "admin_base.html" %}
 
-{% block page-class %}admin{% endblock page-class %}
-
-{% block content %}
-
-{% admin_menu request username tab %}
-
-<div class="wrap">
-
-    {% admin_header request %}
+{% block body %}
 
     <div class="content container">
         <div class="top-margin"></div>
@@ -45,9 +35,6 @@
 </div>
 
 
-{% admin_footer request %}
-
-
-{% endblock content %}
+{% endblock %}
 
 

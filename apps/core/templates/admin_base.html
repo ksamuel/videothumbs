@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-class %}admin{% endblock page-class %}
+
+
+{% block content %}
+
+{% block admin_menu %}
+<div class="logo">
+    <h4><a href="#">Video<strong>Thumbs</strong></a></h4>
+</div>
+
+{% with request.user.username as username %}
+
+<nav id="sidebar" class="sidebar nav-collapse collapse">
+    <ul id="side-nav" class="side-nav">
+        <li class="{% if tab == "dashboard" %}active{% endif %} panel" >
+            <a href="{% url 'admin' username=username %}"><i class="fa fa-home"></i> <span class="name">Dashboard</span></a>
+        </li>
+        <li class="{% if tab == "settings" %}active{% endif %} panel" >
+            <a href="{% url 'admin_thumbnails_settings' username=username %}"><i class="fa fa-edit"></i> <span class="name">Thumbs settings</span></a>
+        </li>
+        <li class="{% if tab == "upload" %}active{% endif %} panel" >
+            <a href="{% url 'admin_upload_video' username=username %}"><i class="fa fa-film"></i> <span class="name">Upload Videos</span></a>
+        </li>
+        <li class="{% if tab == "thumbnails" %}active{% endif %} panel" >
+            <a href="{% url 'admin_your_thumbnails' username=username %}"><i class="fa fa-list"></i> <span class="name">Your thumbnails</span></a>
+        </li>
+        <li class="{% if tab == "api" %}active{% endif %} panel" >
+            <a href="{% url 'admin_api' username=username %}"><i class="fa fa-magic"></i> <span class="name">Api</span></a>
+        </li>
+        <li class="{% if tab == "buy" %}active{% endif %} panel" >
+            <a href="{% url 'admin_buy_credits' username=username %}"><i class="fa fa-credit-card"></i> <span class="name">Buy credits</span></a>
+        </li>
+        <li class="{% if tab == "contact" %}active{% endif %} panel" >
+            <a href="{% url 'admin_contact' username=username %}"><i class="fa fa-phone"></i> <span class="name">Contact Us</span></a>
+        </li>
+    </ul>
+</nav>
+
+{% endwith %}
+
+
+{% endblock %}
+
+<div class="wrap">
+
+    <header class="page-header">
+        <div class="navbar">
+            <ul class="nav navbar-nav navbar-right pull-right">
+                <li><h4 class="welcome">billy@gmail.com</h4></li>
+                <li class="divider"></li>
+                <li class="dropdown">
+                    <a href="#" title="2 messages"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                        <i class="fa fa-comments"></i>
+                        <span class="count">2</span>
+                    </a>
+                    <ul id="support-menu" class="dropdown-menu support" role="menu">
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-info"><i class="fa fa-money"></i></span>
+                                </div>
+                                <div class="details">
+                                    added 230 credits
+                                </div>
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-success"><i class="fa fa-plus"></i></span>
+                                </div>
+                                <div class="details">
+                                    Task "Biatch summer set" done
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" title="23003 credits left"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                        <i class="fa fa-credit-card"></i>
+                        <span class="count">23003</span>
+                    </a>
+                    <ul id="support-menu" class="dropdown-menu support" role="menu">
+                        <li role="presentation">
+                            <a href="#" class="support-ticket">
+                                <div class="picture">
+                                    <span class="label label-warning"><i class="fa fa-question-circle"></i></span>
+                                </div>
+                                <div class="details">
+                                    50 credits used for task "240x180 biatch time"
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {% block body %}
+    {% endblock %}
+
+
+    {% load static %}
+
+    <link href="{% static "css/application.css" %}" rel="stylesheet">
+
+    <!-- jquery and friends -->
+    <script src="{% static "js/jquery/jquery-2.0.3.min.js" %}"> </script>
+
+
+    <!-- jquery plugins -->
+    <script src="{% static "js/jquery-maskedinput/jquery.maskedinput.js" %}"></script>
+    <script src="{% static "js/parsley/parsley.js" %}"> </script>
+    <script src="{% static "js/icheck.js/jquery.icheck.js" %}"></script>
+    <script src="{% static "js/select2.js" %}"></script>
+    <script src="{% static "js/jquery.autogrow-textarea.js" %}"></script>
+
+    <script src="{% static "js/jquery-ui-1.10.3.custom.js" %}"></script>
+    <script src="{% static "js/jquery.slimscroll.js" %}"></script>
+
+
+    <!-- d3, nvd3-->
+    <script src="{% static "js/nvd3/lib/d3.v2.js" %}"></script>
+    <script src="{% static "js/nvd3/nv.d3.custom.js" %}"></script>
+
+    <!-- nvd3 models -->
+    <script src="{% static "js/nvd3/src/models/scatter.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/axis.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/legend.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/stackedArea.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/stackedAreaChart.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/line.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/pie.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/pieChartTotal.js" %}"></script>
+    <script src="{% static "js/nvd3/stream_layers.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/lineChart.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/multiBar.js" %}"></script>
+    <script src="{% static "js/nvd3/src/models/multiBarChart.js" %}"></script>
+
+
+    <!--backbone and friends -->
+    <script src="{% static "js/backbone/underscore-min.js" %}"></script>
+
+    <!-- bootstrap default plugins -->
+    <script src="{% static "js/bootstrap/transition.js" %}"></script>
+    <script src="{% static "js/bootstrap/collapse.js" %}"></script>
+    <script src="{% static "js/bootstrap/alert.js" %}"></script>
+    <script src="{% static "js/bootstrap/tooltip.js" %}"></script>
+    <script src="{% static "js/bootstrap/popover.js" %}"></script>
+    <script src="{% static "js/bootstrap/button.js" %}"></script>
+    <script src="{% static "js/bootstrap/dropdown.js" %}"></script>
+    <script src="{% static "js/bootstrap/modal.js" %}"></script>
+
+    <!-- bootstrap custom plugins -->
+    <script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+    <script src="{% static "js/bootstrap-select/bootstrap-select.js" %}"></script>
+    <script src="{% static "js/wysihtml5/wysihtml5-0.3.0_rc2.js" %}"></script>
+    <script src="{% static "js/bootstrap-wysihtml5/bootstrap-wysihtml5.js" %}"></script>
+    <script src="{% static "js/bootstrap-switch.js" %}"></script>
+    <script src="{% static "js/bootstrap-colorpicker.js" %}"></script>
+
+    <!-- basic application js-->
+    <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/settings.js" %}"></script>
+
+    <!-- page specific -->
+    <script src="{% static "js/forms-elemets.js" %}"></script>
+
+
+    <!-- page-specific -->
+    <script type="text/javascript" src="{% static "js/print.js" %}"></script>
+
+    <script type="text/template" id="settings-template">
+        <div class="setting clearfix">
+            <div>Background</div>
+            <div id="background-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+                <% dark = background == 'dark'; light = background == 'light';%>
+                <button type="button" data-value="dark" class="btn btn-sm btn-transparent <%= dark? 'active' : '' %>">Dark</button>
+                <button type="button" data-value="light" class="btn btn-sm btn-transparent <%= light? 'active' : '' %>">Light</button>
+            </div>
+        </div>
+        <div class="setting clearfix">
+            <div>Sidebar on the</div>
+            <div id="sidebar-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+                <% onRight = sidebar == 'right'%>
+                <button type="button" data-value="left" class="btn btn-sm btn-transparent <%= onRight? '' : 'active' %>">Left</button>
+                <button type="button" data-value="right" class="btn btn-sm btn-transparent <%= onRight? 'active' : '' %>">Right</button>
+            </div>
+        </div>
+        <div class="setting clearfix">
+            <div>Sidebar</div>
+            <div id="display-sidebar-toggle" class="pull-left btn-group" data-toggle="buttons-radio">
+                <% display = displaySidebar%>
+                <button type="button" data-value="true" class="btn btn-sm btn-transparent <%= display? 'active' : '' %>">Show</button>
+                <button type="button" data-value="false" class="btn btn-sm btn-transparent <%= display? '' : 'active' %>">Hide</button>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="sidebar-settings-template">
+            <% auto = sidebarState == 'auto'%>
+            <% if (auto) {%>
+                <button type="button"
+                        data-value="icons"
+                        class="btn-icons btn btn-transparent btn-sm">Icons</button>
+        <button type="button"
+                data-value="auto"
+                class="btn-auto btn btn-transparent btn-sm">Auto</button>
+            <%} else {%>
+                <button type="button"
+                        data-value="auto"
+                        class="btn btn-transparent btn-sm">Auto</button>
+            <% } %>
+    </script>
+
+</div>
+
+{% endblock content %}
+
+

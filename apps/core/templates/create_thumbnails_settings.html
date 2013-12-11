@@ -15,37 +15,27 @@
                     </header>
                     <div class="body">
 
-                        {% if thumbnails_settings %}
-                            <ul>
-                            {% for ts in thumbnails_settings %}
-                                <li><span>{{ ts.name }}</span> <a href="#">Edit</a> <a href="#">Delete</a></li>
-                            {% endfor %}
-                            </ul>
-                        {% else %}
-                           <p> You don't have have any thumbnails settings Yet. </p>
-                            <p> You need at least one set of settings to make thumbnails.</p>
-                        {% endif %}
-
-                        <a type="button" class="btn btn-primary" href="{% url 'create_thumbnails_settings' username=request.user.username %}">Add new settings</a>
-
-{% comment %}
 
                         <form class="form-horizontal" method="post">
                             <fieldset>
                                 <legend class="section">Set your thumbnails preferences, size, filters, number of thumbs, etc</legend>
 
 
+                                {% if form.errors %}
+                                    <div class="alert alert-danger">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="fa fa-ban"></i> <strong>Oh snap! You got an error!</strong></h4>
+                                        <p>{{ form.errors }} </p>
+                                    </div>
+                                {% endif %}
+{% comment %}
 
-                                <div class="alert alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    <h4><i class="fa fa-ban"></i> <strong>Oh snap! You got an error!</strong></h4>
-                                    <p>Something goes wrong while processing your request, try again later.</p>
-                                </div>
+
                                 <div class="alert alert-success">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <strong><i class="fa fa-check"></i> Well Done!</strong> Your settings have been saved. <br>You can now start uploading a video and start thumbnailing.
                                 </div>
-
+{% endcomment %}
                                 <div class="control-group">
                                     <label class="control-label" for="normal-field">Name your settings
                                     </label>
@@ -116,6 +106,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {% csrf_token %}
                         </form>
                     </div>
                 </section>
@@ -150,6 +141,5 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-{% endcomment %}
 {% endblock %}
 

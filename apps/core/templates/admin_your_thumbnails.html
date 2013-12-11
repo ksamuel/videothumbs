@@ -1,16 +1,6 @@
-{% extends "base.html" %}
-{% load browsing %}
-{% load static %}
+{% extends "admin_base.html" %}
 
-{% block page-class %}admin{% endblock page-class %}
-
-{% block content %}
-
-{% admin_menu request username tab %}
-
-<div class="wrap">
-
-    {% admin_header request %}
+{% block body %}
 
     <div class="content container">
         <div class="top-margin"></div>
@@ -22,7 +12,7 @@
                             <i class="fa fa-list"></i>
                             Your thumbnails
                         </h4>
-                    </header> 
+                    </header>
 
                     <div class="body">
                         <fieldset>
@@ -119,7 +109,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -138,10 +127,6 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
-{% admin_footer request %}
-
-
-{% endblock content %}
+{% endblock %}
 
 
