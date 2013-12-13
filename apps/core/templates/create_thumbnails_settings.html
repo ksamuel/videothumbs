@@ -42,7 +42,12 @@
                                     <div class="controls form-group">
                                         <div class="input-group ">
                                             <div class="input-group-btn">
+                                                <span class="tooltip-enabled"
+                                                    data-placement="top" 
+                                                    data-container="body"
+                                                    data-original-title="{{ form.name.help_text }}">
                                                 {{ form.name }}
+                                                </span>
                                                 <button type="button"
                                                     data-original-title="Edit current setting"
                                                     data-placement="top"
@@ -65,7 +70,12 @@
                                     </label>
                                     <div class="controls form-group">
                                         <div class="col-sm-2">
-                                            {{ form.width }}
+                                            <span class="tooltip-enabled"
+                                                data-placement="top" 
+                                                data-container="body"
+                                                data-original-title="{{ form.width.help_text }}">
+                                                {{ form.width }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +85,12 @@
                                     </label>
                                     <div class="controls form-group">
                                         <div class="col-sm-2">
-                                            {{ form.height }}
+                                            <span class="tooltip-enabled"
+                                                data-placement="top" 
+                                                data-container="body"
+                                                data-original-title="{{ form.height.help_text }}">
+                                                {{ form.height }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +99,12 @@
                                     </label>
                                     <div class="controls form-group">
                                         <div class="col-sm-2">
-                                            {{ form.screenshots }}
+                                            <span class="tooltip-enabled"
+                                                data-placement="top" 
+                                                data-container="body"
+                                                data-original-title="{{ form.screenshots.help_text }}">
+                                                {{ form.screenshots }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -93,8 +113,13 @@
                                 <label for="simple-switch" class="control-label">Trim black borders ?</label>
                                 <div class="controls form-group">
                                     <label class="checkbox inline">
-                                        <span class="switch switch-small" data-on="primary" data-off="danger">
-                                            {{ form.trim }}
+                                        <span class="tooltip-enabled"
+                                            data-placement="top" 
+                                            data-container="body"
+                                            data-original-title="{{ form.trim.help_text }}">
+                                            <span class="switch switch-small" data-on="primary" data-off="danger">
+                                                {{ form.trim }}
+                                            </span>
                                         </span>
                                     </label>
                                 </div>
