@@ -13,7 +13,7 @@ from django.core.urlresolvers import reverse
 from django.forms.models import modelform_factory
 from django.forms import widgets
 from django.views import generic
-from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 from django_quicky import routing, view
 
@@ -83,35 +83,15 @@ class CreateThumbnailSettings(generic.CreateView):
 create_thumbnails_settings = admin_login_required(CreateThumbnailSettings.as_view())
 
 
-def admin_thumbnails_settings(request, username):
+@url('user/(?P<username>\w+)/thumbnails_settings/delete/(?P<uuid>[\w-]+)/?')
+@admin_login_required
+def delete_thumbnail_settings(request, username, uuid):
+    ts = get_object_or_404(ThumbnailSettings, uuid=uuid)
+    if ts.user != request.user:
+        raise PermissionDenied
+    ts.delete()
+    return redirect('admin_thumbnails_settings', username=request.user.username)
 
-    user = get_object_or_404(User, username=username)
-    tab = 'settings'
-    form = modelform_factory(Options,
-                             widgets={"width": widgets.NumberInput(attrs={'class' : 'form-control tooltip-enabled',
-                                                                          'data-placement' : 'top',
-                                                                          'data-container' : 'body',
-                                                                          'data-original-title' : Options._meta.get_field('width').help_text}),
-                                      "height": widgets.NumberInput(attrs={'class' : 'form-control tooltip-enabled',
-                                                                                  'data-placement' : 'top',
-                                                                                  'data-container' : 'body',
-                                                                                  'data-original-title' : Options._meta.get_field('height').help_text}),
-                                      "screenshots": widgets.NumberInput(attrs={'class' : 'form-control tooltip-enabled',
-                                                                                  'data-placement' : 'top',
-                                                                                  'data-container' : 'body',
-                                                                                  'data-original-title' : Options._meta.get_field('screenshots').help_text}),
-                                      "name": widgets.Select(attrs={'class' : 'form-control tooltip-enabled',
-                                                                                  'data-placement' : 'top',
-                                                                                  'style' : 'width:50%',
-                                                                                  'data-container' : 'body',
-                                                                                  'data-original-title' : Options._meta.get_field('name').help_text}),
-                                      "trim": widgets.CheckboxInput(attrs={'class' : 'form-control tooltip-enabled',
-                                                                                  'data-placement' : 'top',
-                                                                                  'data-container' : 'body',
-                                                                                  'data-original-title' : Options._meta.get_field('trim').help_text})
-                                     }
-                             )
-    return locals()
 
 
 @url('user/(?P<username>\w+)/admin/upload-video/?')

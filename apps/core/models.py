@@ -12,6 +12,15 @@ from django_extensions.db.fields import UUIDField, CreationDateTimeField
 from libs.serialized_redis import client as redis
 
 
+class ThumbnailSettingsManager(models.Manager):
+    """
+        Display only non deleted thumbnails settings.
+    """
+    def get_query_set(self):
+        return super(ThumbnailSettingsManager,
+                     self).get_query_set().filter(deleted=False)
+
+
 class ThumbnailSettings(models.Model):
 
     GRAVITY = (
@@ -30,6 +39,9 @@ class ThumbnailSettings(models.Model):
         ("overflow", "Overflow canvas"),
         ("crop", "Crop to fit"),
     )
+
+    objects = ThumbnailSettingsManager()
+    real_objects = models.Manager()
 
 
     uuid = UUIDField(primary_key=True)
@@ -74,6 +86,21 @@ class ThumbnailSettings(models.Model):
 
     trim = models.BooleanField(default=False,
                             help_text="Remove the black borders of the video.")
+
+    deleted = models.BooleanField(default=False, blank=True,
+                                  help_text="Is the item soft deleted ?.")
+
+
+    def delete(self, hard=False, *args, **kwargs):
+        """
+            Soft delete the settings, except if "hard" is passed.
+        """
+        if hard:
+            return super(ThumbnailSettings, self).deleted(*args, **kwargs)
+
+        self.deleted = True
+        self.save()
+        return self
 
 
     def __unicode__(self):
