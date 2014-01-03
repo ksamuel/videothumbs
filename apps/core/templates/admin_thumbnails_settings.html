@@ -59,9 +59,9 @@
                                         </p>
                                     </td>
                                     <td class="valign">
-                                        <button class="btn btn-sm btn-primary">
+                                        <a href="{% url 'update_thumbnails_settings' username=request.user.username pk=ts.uuid %}" class="btn btn-sm btn-primary">
                                             Edit
-                                        </button>
+                                        </a>
                                         <a href="{% url 'delete_thumbnail_settings' username=request.user.username uuid=ts.uuid %}" class="btn btn-sm btn-danger delete">
                                             Delete
                                         </a>

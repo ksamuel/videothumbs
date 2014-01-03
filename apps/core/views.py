@@ -65,6 +65,23 @@ class ThumbnailSettingsList(generic.ListView):
 thumbnail_settings_list = admin_login_required(ThumbnailSettingsList.as_view())
 
 
+class UpdateThumbnailSettings(generic.UpdateView):
+    form_class = ThumbnailSettingsForm
+    model = ThumbnailSettings
+    template_name = 'update_thumbnails_settings.html'
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(UpdateThumbnailSettings, self).get_form_kwargs(**kwargs)
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('admin_thumbnails_settings',
+                       kwargs={'username': self.request.user.username})
+
+update_thumbnails_settings = admin_login_required(UpdateThumbnailSettings.as_view())
+
+
 
 class CreateThumbnailSettings(generic.CreateView):
 
