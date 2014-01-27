@@ -8,8 +8,6 @@ import tempfile
 
 import djcelery
 
-from celery.schedules import crontab
-
 from path import path
 
 USERENA_USE_MESSAGES = False
@@ -39,7 +37,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': VAR_DIR / 'videothumbs.sqlite',
+        'NAME': VAR_DIR / 'videothumbs.db',
     }
 }
 
