@@ -377,8 +377,8 @@ if __name__ == '__main__':
             'gravity': 'center',
             'ratio_policy': 'crop',
             'screenshots': 15,
-            'width': 340,
-            'height': 280,
+            'width': 360,
+            'height': 240,
             'trim': True}
 
     print screenshots(test)
